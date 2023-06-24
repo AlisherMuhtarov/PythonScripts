@@ -1,22 +1,26 @@
 import boto3
 
-# Boto3 will automatically use the IAM role credentials assigned to the EC2 instance
-ec2 = boto3.client('ec2')
+# Retrieve existing instance information
+existing_instance_id = 'i-09fcf0ef0f3c8ffb9'  # Replace 'your-existing-instance-id' with the actual existing instance ID
 
-# Use Boto3 to interact with AWS services
-# For example, list all EC2 instances
-instances = ec2.instances.all()
-for instance in instances:
-    print(instance.id)
-imageid = instance.id
+ec2_client = boto3.client('ec2')
+response = ec2_client.describe_instances(InstanceIds=[existing_instance_id])
+reservations = response['Reservations']
+existing_instance = reservations[0]['Instances'][0]
 
-instance_type = ec2_resource
+existing_image_id = existing_instance['ImageId']
+existing_instance_type = existing_instance['InstanceType']
 
+# Create a new EC2 instance using the retrieved information
+ec2_resource = boto3.resource('ec2')
 
-new_instance = ec2.create_instances(
-    ImageId=print(imageid),
-    InstanceType='t2.micro',
+new_instance = ec2_resource.create_instances(
+    ImageId=existing_image_id,
+    InstanceType=existing_instance_type,
     MinCount=1,
     MaxCount=1
 )
-print(new_instance[0].id)
+
+# Print the new instance ID
+new_instance_id = new_instance[0].id
+print("New Instance ID:", new_instance_id)
