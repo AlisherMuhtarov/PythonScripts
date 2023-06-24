@@ -1,14 +1,7 @@
 import boto3
 
 ec2 = boto3.resource('ec2')
-# Retrieve all images
-response = ec2_resource.describe_images(Owners=['self'])
+instance = ec2.Instance('id')
 
-# Extract image IDs
-image_ids = [image['ImageId'] for image in response['Images']]
-
-# Print image IDs
-for image_id in image_ids:
-    print(image_id)
-
-
+image_id = ec2.instance.image_id
+print(image_id)
