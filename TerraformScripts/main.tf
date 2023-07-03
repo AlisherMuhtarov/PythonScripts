@@ -1,5 +1,5 @@
 resource "aws_iam_role" "lambda_role" {
- name   = "Spacelift_Test_Lambda_Function_Role"
+ name   = "lambda_function_role"
  assume_role_policy = jsonencode(
 {
  "Version": "2012-10-17",
@@ -54,7 +54,7 @@ resource "aws_lambda_function" "terraform_lambda_func" {
  filename                       = data.archive_file.zip_the_python_code.output_path
  function_name                  = "ec2_create_function"
  role                           = aws_iam_role.lambda_role.arn
- handler                        = "/home/ec2-user/lambda_function.lambda_handler"
- runtime                        = "python3.10"
+ handler                        = "/home/ec2-user/app.lambda_function.lambda_handler"
+ runtime                        = "python3.9"
  depends_on                     = [aws_iam_role_policy_attachment.attach_iam_policy_to_iam_role]
 }
