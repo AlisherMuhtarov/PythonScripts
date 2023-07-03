@@ -45,18 +45,12 @@ resource "aws_iam_role_policy_attachment" "attach_iam_policy_to_iam_role" {
  policy_arn  = aws_iam_policy.iam_policy_for_lambda.arn
 }
 
-provisioner "local-exec" {
-  command = <<-EOT
-    sudo yum install python3-pip
-    sudo pip3 install boto3 -t /home/ec2-user/PythonScripts/TerraformScripts/lambda_function/
-  EOT
-}
-
 data "archive_file" "zip_the_python_code" {
  type        = "zip"
  source_dir  = "/home/ec2-user/PythonScripts/TerraformScripts/lambda_function/"
  output_path = "/home/ec2-user/PythonScripts/TerraformScripts/lambda_function/lambda_function.zip"
 }
+
 resource "aws_lambda_function" "terraform_lambda_func" {
  filename                       = data.archive_file.zip_the_python_code.output_path
  function_name                  = "ec2_create_function"
@@ -64,4 +58,11 @@ resource "aws_lambda_function" "terraform_lambda_func" {
  handler                        = "lambda_function.lambda_handler"
  runtime                        = "python3.9"
  depends_on                     = [aws_iam_role_policy_attachment.attach_iam_policy_to_iam_role]
+
+ provisioner "local-exec" {
+  command = <<-EOT
+    sudo yum install python3-pip
+    sudo pip3 install boto3 -t /home/ec2-user/PythonScripts/TerraformScripts/lambda_function/
+  EOT
+}
 }
