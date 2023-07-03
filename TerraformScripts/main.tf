@@ -47,14 +47,14 @@ resource "aws_iam_role_policy_attachment" "attach_iam_policy_to_iam_role" {
 
 data "archive_file" "zip_the_python_code" {
  type        = "zip"
- source_dir  = "/home/ec2-user/app/PythonScripts/"
- output_path = "/home/ec2-user/app/PythonScripts/lambda_function.zip"
+ source_dir  = "/home/ec2-user/PythonScripts/app/PythonScripts/"
+ output_path = "/home/ec2-user/PythonScripts/app/PythonScripts/lambda_function.zip"
 }
 resource "aws_lambda_function" "terraform_lambda_func" {
  filename                       = data.archive_file.zip_the_python_code.output_path
  function_name                  = "ec2_create_function"
  role                           = aws_iam_role.lambda_role.arn
- handler                        = "app.lambda_function.lambda_handler"
+ handler                        = "lambda_function.lambda_handler"
  runtime                        = "python3.9"
  depends_on                     = [aws_iam_role_policy_attachment.attach_iam_policy_to_iam_role]
 }

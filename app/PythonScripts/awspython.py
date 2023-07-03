@@ -2,7 +2,7 @@ import boto3
 
 def lambda_handler(event, context):
     # Retrieve existing instance information
-    existing_instance_id = 'i-0f81c59dbaa43bbe8'  # Replace 'your-existing-instance-id' with the actual existing instance ID
+    existing_instance_id = 'i-0f88a046d9a51cb67'  # Replace 'your-existing-instance-id' with the actual existing instance ID
 
     ec2_client = boto3.client('ec2')
     response = ec2_client.describe_instances(InstanceIds=[existing_instance_id])
@@ -26,7 +26,9 @@ def lambda_handler(event, context):
     new_instance_id = new_instance[0].id
     print("New Instance ID:", new_instance_id)
 
-return {
-    'statusCode': 200,
-    'body': 'New Instance Created:' + new_instance_id
-}
+    response {
+        'statusCode': 200,
+        'body': 'New Instance Created:' + new_instance_id
+    }
+    
+    return response
