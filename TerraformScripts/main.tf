@@ -23,20 +23,26 @@ resource "aws_iam_policy" "iam_policy_for_lambda" {
  path         = "/"
  description  = "AWS IAM Policy for managing aws lambda role"
 
- policy = jsonencode({
- "Version": "2012-10-17",
- "Statement": [
-   {
-     "Effect": "Allow"
-     "Action": [
-       "logs:CreateLogGroup",
-       "logs:CreateLogStream",
-       "logs:PutLogEvents",
-       "ec2:DescribeInstances"
-     ],
-     "Resource": "arn:aws:logs:*:*:*",
-   }
- ]
+policy = jsonencode({
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "logs:CreateLogGroup",
+        "logs:CreateLogStream",
+        "logs:PutLogEvents"
+      ],
+      "Resource": "arn:aws:logs:*:*:*"
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "ec2:DescribeInstances"
+      ],
+      "Resource": "*"
+    }
+  ]
 })
 }
 
