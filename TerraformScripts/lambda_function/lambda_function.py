@@ -26,9 +26,9 @@ def lambda_handler(event, context):
     new_instance_id = new_instance[0].id
     print("New Instance ID:", new_instance_id)
 
-    response {
+    response = {
         'statusCode': 200,
-        'body': 'New Instance Created:' + new_instance_id
+        'body': f'New Instance Created: {new_instance_id}'
     }
     
     return response
