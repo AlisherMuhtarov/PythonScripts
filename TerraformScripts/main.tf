@@ -52,12 +52,6 @@ provisioner "local-exec" {
   EOT
 }
 
-# Trigger the provisioner only when the resource is created
-triggers = {
-  run_once = timestamp()
-}
-
-
 data "archive_file" "zip_the_python_code" {
  type        = "zip"
  source_dir  = "/home/ec2-user/PythonScripts/TerraformScripts/lambda_function/"
