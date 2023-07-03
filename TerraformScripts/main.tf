@@ -61,7 +61,7 @@ resource "aws_lambda_function" "terraform_lambda_func" {
 
  provisioner "local-exec" {
   command = <<-EOT
-    sudo yum install python3-pip
+    sudo yum install -y python3-pip
     sudo pip3 install boto3 -t /home/ec2-user/PythonScripts/TerraformScripts/lambda_function/
   EOT
 }
