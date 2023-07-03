@@ -45,10 +45,23 @@ resource "aws_iam_role_policy_attachment" "attach_iam_policy_to_iam_role" {
  policy_arn  = aws_iam_policy.iam_policy_for_lambda.arn
 }
 
+resource "null_resource" "install_pip" {
+  provisioner "local-exec" {
+    inline = [
+        "sudo yum install python3-pip",
+        "sudo install boto3 -t /home/ec2-user/PythonScripts/TerraformScripts/lambda_function/"
+    ]
+  }
+  # Trigger the provisioner only when the resource is created
+  triggers = {
+    run_once = timestamp()
+  }
+}
+
 data "archive_file" "zip_the_python_code" {
  type        = "zip"
- source_dir  = "/home/ec2-user/PythonScripts/app/PythonScripts/"
- output_path = "/home/ec2-user/PythonScripts/app/PythonScripts/lambda_function.zip"
+ source_dir  = "/home/ec2-user/PythonScripts/TerraformScripts/lambda_function/"
+ output_path = "/home/ec2-user/PythonScripts/TerraformScripts/lambda_function/lambda_function.zip"
 }
 resource "aws_lambda_function" "terraform_lambda_func" {
  filename                       = data.archive_file.zip_the_python_code.output_path
