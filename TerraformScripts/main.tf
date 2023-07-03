@@ -65,10 +65,10 @@ resource "aws_lambda_function" "terraform_lambda_func" {
  runtime                        = "python3.9"
  depends_on                     = [aws_iam_role_policy_attachment.attach_iam_policy_to_iam_role]
 
- provisioner "local-exec" {
-  command = <<-EOT
-    sudo yum install -y python3-pip
-    sudo pip3 install boto3 -t /home/ec2-user/PythonScripts/TerraformScripts/lambda_function/
-  EOT
-}
+#  provisioner "local-exec" {
+#   command = <<-EOT
+#     sudo yum install -y python3-pip
+#     sudo pip3 install boto3 -t /home/ec2-user/PythonScripts/TerraformScripts/lambda_function/
+#   EOT
+# }
 }
