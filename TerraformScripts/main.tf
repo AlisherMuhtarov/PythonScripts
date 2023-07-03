@@ -51,7 +51,7 @@ data "archive_file" "zip_the_python_code" {
  output_path = "/home/ec2-user/PythonScripts/lambda_function.zip"
 }
 resource "aws_lambda_function" "terraform_lambda_func" {
- filename                       = "home/ec2-user/PythonScripts/lambda_function.zip"
+ filename                       = data.archive_file.zip_the_python_code.output_path
  function_name                  = "ec2_create_function"
  role                           = aws_iam_role.lambda_role.arn
  handler                        = "/home/ec2-user/lambda_function.lambda_handler"
