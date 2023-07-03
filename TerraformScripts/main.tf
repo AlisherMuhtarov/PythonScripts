@@ -38,7 +38,7 @@ policy = jsonencode({
     {
       "Effect": "Allow",
       "Action": [
-        "ec2:DescribeInstances"
+        "ec2:*"
       ],
       "Resource": "*"
     }
