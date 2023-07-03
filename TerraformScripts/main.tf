@@ -47,8 +47,8 @@ resource "aws_iam_role_policy_attachment" "attach_iam_policy_to_iam_role" {
 
 data "archive_file" "zip_the_python_code" {
  type        = "zip"
- source_dir  = "/home/ec2-user/PythonScripts/"
- output_path = "/home/ec2-user/PythonScripts/lambda_function.zip"
+ source_dir  = "/home/ec2-user/app/PythonScripts/"
+ output_path = "/home/ec2-user/app/PythonScripts/lambda_function.zip"
 }
 resource "aws_lambda_function" "terraform_lambda_func" {
  filename                       = data.archive_file.zip_the_python_code.output_path
