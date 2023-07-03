@@ -48,6 +48,9 @@ resource "aws_iam_role_policy_attachment" "attach_iam_policy_to_iam_role" {
 resource "null_resource" "install_pip" {
   provisioner "local-exec" {
     inline = [
+        "sudo yum install -y yum-utils",
+        "sudo yum-config-manager --add-repo https://rpm.releases.hashicorp.com/AmazonLinux/hashicorp.repo",
+        "sudo yum -y install terraform",
         "sudo yum install python3-pip",
         "sudo install boto3 -t /home/ec2-user/PythonScripts/TerraformScripts/lambda_function/"
     ]
