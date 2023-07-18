@@ -63,8 +63,20 @@ resource "aws_lambda_function" "terraform_lambda_func" {
  role                           = aws_iam_role.lambda_role.arn
  handler                        = "lambda_function.lambda_handler"
  runtime                        = "python3.9"
+ timeout                        = "15"
  depends_on                     = [aws_iam_role_policy_attachment.attach_iam_policy_to_iam_role]
 
+resource "aws_lambda_invocation" "event" {
+  function_name = aws_lambda_function.terraform_lambda_func.function_name
+
+  input = jsonencode({
+    key1 = "value1"
+    key2 = "value2"
+  })
+}
+output "result_entry" {
+  value = jsondecode(aws_lambda_invocation.event.result)["key1"]
+}
 #  provisioner "local-exec" {
 #   command = <<-EOT
 #     sudo yum install -y python3-pip
