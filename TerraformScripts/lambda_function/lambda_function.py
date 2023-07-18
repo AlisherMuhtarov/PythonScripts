@@ -9,7 +9,8 @@ def lambda_handler(event, context):
 
     # Describe the existing instances
     response = ec2_client.describe_instances(InstanceIds=[existing_instance_id])
-    existing_instance = ['Instances'][0]
+    reservations = response['Reservations']
+    existing_instance = reservations[0]['Instances'][0]
 
     # Extract necessary information from the existing instance
     existing_image_id = existing_instance['ImageId']
