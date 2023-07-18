@@ -7,10 +7,10 @@ def lambda_handler(event, context):
     # Create an EC2 client
     ec2_client = boto3.client('ec2')
 
-    # Describe the existing instances
+    # Making an API call to the EC2 service using the describe_instances operation it retrieves information about one or more instances based on the provided instance IDs.
     response = ec2_client.describe_instances(InstanceIds=[existing_instance_id])
-    reservations = response['Reservations']
-    existing_instance = reservations[0]['Instances'][0]
+    reservations = response['Reservations'] # describe_instances operation returns a response that contains information about one or more instances, response structure follows a hierarchical format, where the top-level element is the Reservations list.
+    existing_instance = reservations[0]['Instances'][0] # Reservations list represents a reservation of one or more instances, reservation can be thought of as a grouping of instances made by a user, within it includes the instance ID, image ID, instance type, state, and other attributes.
 
     # Extract necessary information from the existing instance
     existing_image_id = existing_instance['ImageId']
