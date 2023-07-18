@@ -2,7 +2,7 @@ import boto3
 
 def lambda_handler(event, context):
     # Retrieve existing instance information
-    existing_instance_id = 'i-05facd0e10f29aae6'  # Replace 'your-existing-instance-id' with the actual existing instance ID'
+    existing_instance_id = 'i-09faaf208a46f175d'  # Replace 'your-existing-instance-id' with the actual existing instance ID'
 
     ec2_client = boto3.client('ec2')
     response = ec2_client.describe_instances(InstanceIds=[existing_instance_id])
